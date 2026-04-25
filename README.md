@@ -1,107 +1,120 @@
-# Görüntü İşleme Dersi — Grup 12
+# 🛒 Product Management Microservice (Flask CRUD API)
 
-## Temel Görüntü İşleme Operasyonlarının Manuel İmplementasyonu
-
-Bu projede temel görüntü işleme operasyonları, hazır kütüphane fonksiyonları kullanılmaksızın sıfırdan (from scratch) manuel olarak implement edilmektedir.
+Bu proje, Python ve Flask web çatısı (framework) kullanılarak geliştirilmiş, temel ürün yönetim işlemlerini gerçekleştiren bir **RESTful API** mikro hizmetidir. Bir yazılım mühendisi perspektifiyle; verilerin HTTP protokolü üzerinden nasıl yönetildiğini (CRUD operasyonları) ve API mimarisinin nasıl kurgulandığını uygulamalı olarak göstermektedir.
 
 ---
 
-## Grup Üyeleri ve İş Bölümü
+## 🚀 Proje Hakkında
 
-| Kişi | Sorumluluk | Dosya |
-|------|-----------|-------|
-| Kişi 1 | Gri Dönüşüm, Binary, Renk Uzayı (RGB→HSV), Histogram | `kisi1_temel.py` |
-| Kişi 2 | Döndürme, Kırpma, Ölçekleme, Aritmetik İşlemler | `kisi2_geometrik.py` |
-| Kişi 3 | Parlaklık/Kontrast, Konvolüsyon, Gauss, Bulanıklaştırma | `kisi3_filtreleme.py` |
-| Kişi 4 | Eşikleme (Global & Adaptif), Sobel Kenar, Gürültü | `kisi4_kenar.py` |
-| Kişi 5 | Morfolojik İşlemler, Ana İş Akışı, Entegrasyon | `kisi5_morfoloji.py` + `main.py` |
+Bu mikro hizmet, bir envanterdeki ürünlerin listelenmesi, yeni ürün girişi, mevcut ürünlerin güncellenmesi ve sistemden kaldırılması süreçlerini yönetir. Proje kapsamında hem **terminal (cURL)** hem de **Postman** üzerinden kapsamlı testler gerçekleştirilmiştir.
 
 ---
 
-## Kullanılan Teknolojiler
+## ✨ Temel Özellikler (CRUD Operasyonları)
 
-- **Python 3.10+** — ana geliştirme dili
-- **NumPy** — tüm piksel işlemleri için (serbest)
-- **OpenCV** — yalnızca `cv2.imread`, `cv2.imwrite`, `cv2.imshow` (sınırlı)
-- **Matplotlib** — görselleştirme ve histogram grafikleri
-
-### Yasak Fonksiyonlar
-
-OpenCV'nin şu fonksiyonlarının kullanımı kesinlikle yasaktır:
-`cv2.resize`, `cv2.rotate`, `cv2.warpAffine`, `cv2.filter2D`, `cv2.GaussianBlur`,
-`cv2.medianBlur`, `cv2.Sobel`, `cv2.Canny`, `cv2.threshold`, `cv2.adaptiveThreshold`,
-`cv2.equalizeHist`, `cv2.erode`, `cv2.dilate`
+| Operasyon | Metot | Açıklama |
+|-----------|-------|----------|
+| **Create** | `POST` | Sisteme benzersiz ID, isim ve fiyat bilgisiyle yeni ürün ekler |
+| **Read** | `GET` | Mevcut tüm ürünleri listeler veya belirli bir ürünü getirir |
+| **Update** | `PUT` | Belirtilen ID'ye sahip ürünün bilgilerini revize eder |
+| **Delete** | `DELETE` | Belirli bir ürünü kalıcı olarak sistemden kaldırır |
 
 ---
 
-## Proje Yapısı
+## 🛠️ Kullanılan Teknolojiler
 
+![Python](https://img.shields.io/badge/Python-3.x-blue?style=flat-square&logo=python)
+![Flask](https://img.shields.io/badge/Flask-Framework-black?style=flat-square&logo=flask)
+![JSON](https://img.shields.io/badge/Format-JSON-orange?style=flat-square)
+![Postman](https://img.shields.io/badge/Test-Postman-FF6C37?style=flat-square&logo=postman)
+![Git](https://img.shields.io/badge/VCS-Git-F05032?style=flat-square&logo=git)
+
+- **Backend:** Python 3 & Flask Framework
+- **Veri Formatı:** JSON (JavaScript Object Notation)
+- **API Test:** Postman & cURL
+- **Versiyon Kontrol:** Git & GitHub
+
+---
+
+## 📡 API Uç Noktaları (Endpoints)
+
+| Metot | Uç Nokta | İşlev |
+|-------|----------|-------|
+| `GET` | `/products` | Tüm ürün listesini döndürür |
+| `GET` | `/products/{id}` | Belirtilen ID'deki ürünün detaylarını getirir |
+| `POST` | `/products` | Yeni bir ürün nesnesi oluşturur |
+| `PUT` | `/products/{id}` | Mevcut ürünün bilgilerini günceller |
+| `DELETE` | `/products/{id}` | Ürünü sistemden siler |
+
+### 📝 Örnek JSON Payload
+
+`POST` veya `PUT` isteklerinde kullanılan veri yapısı:
+
+```json
+{
+    "id": 146,
+    "name": "Laptop Bag",
+    "price": 42.00
+}
 ```
-goruntu-isleme-proje/
-├── images/              ← test görüntüleri (buraya koy)
-├── outputs/             ← işlenmiş çıktılar (.gitignore'da)
-├── kisi1_temel.py
-├── kisi2_geometrik.py
-├── kisi3_filtreleme.py
-├── kisi4_kenar.py
-├── kisi5_morfoloji.py
-├── main.py              ← tüm modülleri çalıştırır
-├── README.md
-└── .gitignore
-```
 
 ---
 
-## Kurulum
+## ⚙️ Kurulum ve Çalıştırma
 
+### 1. Depoyu Klonlayın
 ```bash
-pip install numpy opencv-python matplotlib
+git clone https://github.com/uzunkubra50/flask-crud-api.git
+cd flask-crud-api
 ```
 
----
-
-## Çalıştırma
-
+### 2. Gerekli Paketleri Yükleyin
 ```bash
-python main.py
+pip install flask flask-cors
+```
+
+### 3. Uygulamayı Başlatın
+```bash
+python3 jmgdo-microservices/CRUD/products.py
+```
+
+### 4. Erişim
+Sunucu varsayılan olarak aşağıdaki adreste dinlemeye başlayacaktır:
+```
+http://localhost:5000
 ```
 
 ---
 
-## Branch Kuralları
+## 🧪 API Test Örnekleri (cURL)
 
-- Her kişi kendi branch'inde çalışır: `kisi1/temel`, `kisi2/geometrik` vb.
-- `main` branch'e doğrudan push yapılmaz — Pull Request açılır.
-- PR açmadan önce kendi modülünü izole test et.
+**Tüm ürünleri listele:**
+```bash
+curl -X GET http://localhost:5000/products
+```
+
+**Yeni ürün ekle:**
+```bash
+curl -X POST http://localhost:5000/products \
+  -H "Content-Type: application/json" \
+  -d '{"id": 146, "name": "Laptop Bag", "price": 42.00}'
+```
+
+**Ürün güncelle:**
+```bash
+curl -X PUT http://localhost:5000/products/146 \
+  -H "Content-Type: application/json" \
+  -d '{"price": 49.99}'
+```
+
+**Ürün sil:**
+```bash
+curl -X DELETE http://localhost:5000/products/146
+```
 
 ---
 
-## Kapsanan Modüller
+## 👤 Geliştirici
 
-1. Gri tonlama dönüşümü (ITU-R BT.601)
-2. Binary dönüşüm
-3. Görüntü döndürme (inverse mapping)
-4. Görüntü kırpma
-5. Yakınlaştırma/uzaklaştırma (Nearest Neighbor)
-6. Renk uzayı dönüşümü (RGB → HSV)
-7. Histogram hesabı ve germe
-8. Aritmetik işlemler (toplama, çarpma)
-9. Parlaklık ve kontrast ayarı
-10. Konvolüsyon ve Gauss filtresi
-11. Eşikleme (global ve adaptif)
-12. Sobel kenar bulma operatörü
-13. Gürültü ekleme (Salt & Pepper) ve temizleme
-14. Bulanıklaştırma filtreleri (Mean, Gauss)
-15. Morfolojik işlemler (Dilation, Erosion, Opening, Closing)
-
----
-
-## Kaynaklar
-
-1. Gonzalez, R. C., & Woods, R. E. (2018). *Digital Image Processing* (4th ed.). Pearson.
-2. Yildirim, A., Kose, C., & Sengur, A. (2021). Effect of color space transformations on segmentation performance in medical images. *Biomedical Signal Processing and Control*, 65, 102359.
-3. Bradley, D., & Roth, G. (2007). Adaptive image thresholding using the integral image. *Journal of Graphics Tools*, 12(2), 13–21.
-4. Lindeberg, T. (1994). Scale-space theory: A basic tool for analyzing structures at different scales. *Journal of Applied Statistics*, 21(1-2), 225–270.
-5. Huang, T. S., Yang, G. J., & Tang, G. Y. (1979). A fast two-dimensional median filtering algorithm. *IEEE Transactions on Acoustics, Speech, and Signal Processing*, 27(1), 13–18.
-6. Sobel, I., & Feldman, G. (1968). A 3x3 isotropic gradient operator for image processing. Stanford AI Project.
-7. Serra, J. (1982). *Image Analysis and Mathematical Morphology*. Academic Press.
+**uzunkubra50**  
+Bu proje, bulut tabanlı mikro hizmet mimarileri ve API geliştirme pratikleri kapsamında hazırlanmıştır.
