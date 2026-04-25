@@ -36,23 +36,24 @@ Uygulama, standart HTTP metotlarını kullanarak şu işlemleri destekler:
     "name": "Laptop Bag",
     "price": 42.00
 }
-⚙️ Kurulum ve Çalıştırma
+## ⚙️ Kurulum ve Çalıştırma
+
 Projeyi yerel makinenizde çalıştırmak için:
 
-Depoyu Klonlayın:
+1.  **Depoyu Klonlayın:**
+    ```bash
+    git clone [https://github.com/uzunkubra50/flask-crud-api.git](https://github.com/uzunkubra50/flask-crud-api.git)
+    ```
+2.  **Gerekli Paketleri Yükleyin:**
+    ```bash
+    pip install flask flask-cors
+    ```
+3.  **Uygulamayı Başlatın:**
+    ```bash
+    python3 jmgdo-microservices/CRUD/products.py
+    ```
+4.  **Erişim:** Sunucu varsayılan olarak `http://localhost:5000` adresinde dinlemeye başlayacaktır.
 
-Bash
-git clone [https://github.com/uzunkubra50/flask-crud-api.git](https://github.com/uzunkubra50/flask-crud-api.git)
-Gerekli Paketleri Yükleyin:
-
-Bash
-pip install flask flask-cors
-Uygulamayı Başlatın:
-
-Bash
-python3 jmgdo-microservices/CRUD/products.py
-Erişim: Sunucu varsayılan olarak http://localhost:5000 adresinde dinlemeye başlayacaktır.
-
-Geliştirici: uzunkubra50
-
-Bu proje, bulut tabanlı mikro hizmet mimarileri ve API geliştirme pratikleri kapsamında hazırlanmıştır.
+---
+**Geliştirici:** [uzunkubra50](https://github.com/uzunkubra50)  
+*Bu proje, bulut tabanlı mikro hizmet mimarileri ve API geliştirme pratikleri kapsamında hazırlanmıştır.*
